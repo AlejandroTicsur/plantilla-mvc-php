@@ -100,4 +100,3 @@ function requerirAutenticación($rol = roles['invitado'])
 
     // Permitir acceso si todo es correcto
 }
-?>

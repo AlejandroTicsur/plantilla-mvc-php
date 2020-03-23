@@ -21,4 +21,3 @@ $capsule->addConnection([
 $capsule->setAsGlobal();
 
 unset($capsule);
-?>
