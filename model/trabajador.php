@@ -17,6 +17,39 @@ class Trabajador
     }
 
 
+    // Devuelve una lista de todos los trabajadores con opción a filtros y
+    // paginación
+    static function listar(array $filtros = [], $pág = null)
+    {
+        $consulta = Capsule::table('vTrabajadores');
+
+        // Aplicar filtros
+        //
+
+
+        // Definir objeto de resultado
+        $resultado = new stdClass;
+        $resultado->filas = [];
+
+        if ($pág) {
+            // Aplicar algoritmo de paginación
+            $págs = (int) ceil($consulta->count() / máxFilas);
+            $primera = (máxFilas * $pág) - máxFilas;
+
+            $consulta = $consulta->skip($primera)->take(máxFilas);
+            $resultado->págs = $págs;
+        }
+
+        // Dar formato a cada uno de los resultados
+        foreach ($consulta->get() as $fila) {
+            $resultado->filas[] = self::formatearFila($fila);
+        }
+
+        return $resultado;
+    }
+
+
+
     // Devuelve los datos de un trabajador dado su ID
     static function ver($id)
     {
